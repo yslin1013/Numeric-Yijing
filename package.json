@@ -1,7 +1,7 @@
 {
   "name": "numeric-yijing",
   "version": "1.0.0",
-  "description": "An analyzer tool for alphanumeric string based on the theory of Numeric Yi-Jing",
+  "description": "A simple analyzing tool for alphanumeric string based on the theory of Numeric Yi-Jing",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
