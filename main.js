@@ -35,7 +35,7 @@ Menu.setApplicationMenu(menu);
 function createWindow() {
   const win = new BrowserWindow({
     width: 500,
-    height: 400,
+    height: 500,
     icon: __dirname + '/images/favicon.ico'
   });
   win.loadFile('index.html');
