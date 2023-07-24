@@ -148,4 +148,4 @@ function runTestCases(strLength) {
     `Testing finished! (n=${"0".padStart(strLength, "0")}~${maxValue-1})`
   );
 }
-runTestCases(6);
+// runTestCases(6);
