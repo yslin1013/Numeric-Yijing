@@ -17,12 +17,21 @@ function main() {
   const numberStr0 = checkStringFormat(inputField.value);
   const numberStr1 = transferAlphabet(numberStr0);
   const numberStr2 = processFives(numberStr1);
-  const numberStr3 = processZeros(numberStr2);
+
+  let numberStr3, tempStr = numberStr2;
+  do {
+    numberStr3 = processZeros(tempStr);
+    if (tempStr == "0"*numberStr2.length) break;
+    tempStr = numberStr3;
+  } while (tempStr.includes("0"));
+
   const numberStr4 = calculateNumbers(numberStr3);
-  console.log(`${numberStr1} (Step 1: 字母轉換)`);
-  console.log(`${numberStr2} (Step 2: 數字5處理)`);
-  console.log(`${numberStr3} (Step 3: 數字0處理)`);
-  console.log(`Step 4: 進行計算\n------\n${numberStr4}`);
+
+  console.log(`(Step 1: 字母轉換)  => ${numberStr1}`);
+  console.log(`(Step 2: 數字5處理) => ${numberStr2}`);
+  console.log(`(Step 3: 數字0處理) => ${numberStr3}`);
+  console.log(`(Step 4: 分析計算)  =>\n${numberStr4}`);
+  console.log(`------------\n`);
   document.getElementById("resultData").innerText = numberStr4;
 }
 
@@ -51,14 +60,15 @@ function processFives(numberStr) {
           numberStr = numberStr.replaceAt(i, "0");
         else
           numberStr = numberStr.replaceAt(i, numberStr[i+1]);
-      }
-      else if (i == numberStr.length - 1) {
+      } else if (i == numberStr.length - 1) {
         if (numberStr[i+1] == "5")
           numberStr = numberStr.replaceAt(i, "0");
         else
           numberStr = numberStr.replaceAt(i, numberStr[i-1]);
+      } else {
+        numberStr = numberStr.slice(0, i) + numberStr.slice(i+1);
+        if (numberStr[i] == "5") i--;
       }
-      else numberStr = numberStr.slice(0, i) + numberStr.slice(i+1);
     }
   }
   return numberStr;
@@ -94,8 +104,7 @@ function calculateNumbers(numberStr) {
     if (key[0] == key[1]) {
       if (previous) value += "(" + previous + ")";
       else value += "伏位";
-    }
-    else {
+    } else {
       previous = (nPairs[key] || nPairs[keyRev]);
       value += previous;
     }
@@ -111,3 +120,30 @@ function calculateNumbers(numberStr) {
 String.prototype.replaceAt = function(index, replacement) {
   return this.substring(0, index) + replacement + this.substring(index + replacement.length);
 }
+
+// ----------------------------------------------------------------
+// Run every test case of numbers to ensure no exception occurred
+function runTestCases(strLength) {
+  const maxValue = Math.pow(10, strLength);
+  for (let i = 0; i < maxValue; i++) {
+    const strValue = `${i}`.padStart(strLength, "0");
+    const numberStr0 = checkStringFormat(strValue);
+    const numberStr1 = transferAlphabet(numberStr0);
+    const numberStr2 = processFives(numberStr1);
+
+    let numberStr3, tempStr = numberStr2;
+    do {
+      numberStr3 = processZeros(tempStr);
+      if (tempStr == "0"*strLength) break;
+      tempStr = numberStr3;
+    } while (tempStr.includes("0"));
+
+    const numberStr4 = calculateNumbers(numberStr3);
+    if (numberStr4.includes(undefined)) {
+      console.log(`Error: ${numberStr4}`);
+      break;
+    }
+  }
+  console.log(`Testing finished! (n=${"0"*strLength}~${maxValue-1})`);
+}
+// runTestCases(6);
