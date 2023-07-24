@@ -144,6 +144,8 @@ function runTestCases(strLength) {
       break;
     }
   }
-  console.log(`Testing finished! (n=${"0"*strLength}~${maxValue-1})`);
+  console.log(
+    `Testing finished! (n=${"0".padStart(strLength, "0")}~${maxValue-1})`
+  );
 }
-// runTestCases(6);
+runTestCases(6);
