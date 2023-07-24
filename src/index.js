@@ -12,6 +12,7 @@ const nPairs = {
 
 const inputField = document.getElementById("inputData");
 const submitButton = document.getElementById("submitData");
+const resultDiv = document.getElementById("resultData");
 inputField.addEventListener("change", main);
 submitButton.addEventListener("click", main);
 
@@ -28,7 +29,7 @@ function main() {
   } while (tempStr.includes("0"));
 
   const numberStr4 = calculateNumbers(numberStr3);
-  document.getElementById("resultData").innerText = numberStr4;
+  resultDiv.innerText = numberStr4;
 
   if (DEBUG_MODE) {
     let logMessage = "";
@@ -45,7 +46,7 @@ function checkStringFormat(input) {
   if (typeof(input) != "string" || input.length == 0) return "";
   const regEx = /^[0-9a-zA-Z]+$/, inputStr = input.trim();
   if (inputStr.match(regEx)) return inputStr;
-  else window.alert('The input should be alphanumeric string.');
+  else resultDiv.innerText = 'Input should be alphanumeric string.';
 }
 
 function transferAlphabet(inputStr) {
