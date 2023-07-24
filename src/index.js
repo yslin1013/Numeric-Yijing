@@ -37,7 +37,9 @@ function main() {
 
 function checkStringFormat(input) {
   if (typeof(input) != "string" || input.length == 0) return "";
-  return input.trim();
+  const regEx = /^[0-9a-zA-Z]+$/, inputStr = input.trim();
+  if (inputStr.match(regEx)) return inputStr;
+  else window.alert('The input should be alphanumeric string.');
 }
 
 function transferAlphabet(inputStr) {
@@ -53,45 +55,51 @@ function transferAlphabet(inputStr) {
 }
 
 function processFives(numberStr) {
-  for (let i = 0; i < numberStr.length; i++) {
-    if (numberStr[i] == "5") {
-      if (i == 0) {
-        if (numberStr[i+1] == "5")
-          numberStr = numberStr.replaceAt(i, "0");
+  const target = "5";
+  let index = numberStr.indexOf(target);
+  while (index >= 0) {
+    if (numberStr[index] == target) {
+      if (index == 0) {
+        if (numberStr[index+1] == target)
+          numberStr = numberStr.replaceAt(index, "0");
         else
-          numberStr = numberStr.replaceAt(i, numberStr[i+1]);
-      } else if (i == numberStr.length - 1) {
-        if (numberStr[i+1] == "5")
-          numberStr = numberStr.replaceAt(i, "0");
+          numberStr = numberStr.replaceAt(index, numberStr[index+1]);
+      } else if (index == numberStr.length - 1) {
+        if (numberStr[index+1] == target)
+          numberStr = numberStr.replaceAt(index, "0");
         else
-          numberStr = numberStr.replaceAt(i, numberStr[i-1]);
+          numberStr = numberStr.replaceAt(index, numberStr[index-1]);
       } else {
-        numberStr = numberStr.slice(0, i) + numberStr.slice(i+1);
-        if (numberStr[i] == "5") i--;
+        numberStr = numberStr.slice(0, index) + numberStr.slice(index+1);
+        if (numberStr[index] == target) index--;
       }
     }
+    index = numberStr.indexOf(target, index+1);
   }
   return numberStr;
 }
 
 function processZeros(numberStr) {
-  for (let i = 0; i < numberStr.length; i++) {
-    if (numberStr[i] == "0") {
-      if (i == 0)
-        numberStr = numberStr.replaceAt(i, numberStr[i+1]);
-      else if (i == numberStr.length - 1)
-        numberStr = numberStr.replaceAt(i, numberStr[i-1]);
+  const target = "0";
+  let index = numberStr.indexOf(target);
+  while (index >= 0) {
+    if (numberStr[index] == target) {
+      if (index == 0)
+        numberStr = numberStr.replaceAt(index, numberStr[index+1]);
+      else if (index == numberStr.length - 1)
+        numberStr = numberStr.replaceAt(index, numberStr[index-1]);
       else {
         let insert;
-        if (numberStr[i-1] != "0" && numberStr[i+1] != "0") {
-          insert = numberStr[i-1] + " " + numberStr[i+1];
+        if (numberStr[index-1] != target && numberStr[index+1] != target) {
+          insert = numberStr[index-1] + " " + numberStr[index+1];
         } else {
-          if (numberStr[i-1] == "0") insert = numberStr[i+1];
-          if (numberStr[i+1] == "0") insert = numberStr[i-1];
+          if (numberStr[index-1] == target) insert = numberStr[index+1];
+          if (numberStr[index+1] == target) insert = numberStr[index-1];
         }
-        numberStr = numberStr.slice(0, i) + insert + numberStr.slice(i+1);
+        numberStr = numberStr.slice(0, index) + insert + numberStr.slice(index+1);
       }
     }
+    index = numberStr.indexOf(target, index+1);
   }
   return numberStr;
 }
@@ -148,4 +156,4 @@ function runTestCases(strLength) {
     `Testing finished! (n=${"0".padStart(strLength, "0")}~${maxValue-1})`
   );
 }
-// runTestCases(6);
+// runTestCases(5);
