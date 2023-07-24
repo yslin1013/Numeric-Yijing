@@ -1,3 +1,5 @@
+const DEBUG_MODE = false;
+
 const nPairs = {
   "13": "天醫", "68": "天醫", "49": "天醫", "27": "天醫",
   "14": "生氣", "67": "生氣", "39": "生氣", "28": "生氣",
@@ -26,13 +28,17 @@ function main() {
   } while (tempStr.includes("0"));
 
   const numberStr4 = calculateNumbers(numberStr3);
-
-  console.log(`(Step 1: 字母轉換)  => ${numberStr1}`);
-  console.log(`(Step 2: 數字5處理) => ${numberStr2}`);
-  console.log(`(Step 3: 數字0處理) => ${numberStr3}`);
-  console.log(`(Step 4: 分析計算)  =>\n${numberStr4}`);
-  console.log(`------------\n`);
   document.getElementById("resultData").innerText = numberStr4;
+
+  if (DEBUG_MODE) {
+    let logMessage = "";
+    logMessage += `(Step 0: 輸入資料)  => ${numberStr0}\n`;
+    logMessage += `(Step 1: 字母轉換)  => ${numberStr1}\n`;
+    logMessage += `(Step 2: 數字5處理) => ${numberStr2}\n`;
+    logMessage += `(Step 3: 數字0處理) => ${numberStr3}\n`;
+    logMessage += `(Step 4: 分析計算)  => \n${numberStr4}`;
+    window.alert(logMessage);
+  }
 }
 
 function checkStringFormat(input) {
