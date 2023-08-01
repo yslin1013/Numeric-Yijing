@@ -1,3 +1,9 @@
+/*
+  Numeric-Yijing (https://github.com/yslin1013/Numeric-Yijing)
+  Version: 1.0.0,
+  Description: A simple analyzing tool for alphanumeric string based on the theory of Numeric Yi-Jing
+  Author: Alison Lin (2023.08.01)
+*/
 const DEBUG_MODE = false;
 
 const nPairs = {
