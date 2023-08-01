@@ -35,7 +35,7 @@ function main() {
     tempStr = numberStr3;
   } while (tempStr.includes("0"));
 
-  const numberStr4 = calculateNumbers(numberStr3);
+  const numberStr4 = analyzeNumbers(numberStr3);
   resultDiv.innerText = numberStr4;
 
   if (DEBUG_MODE) {
@@ -118,7 +118,7 @@ function processZeros(numberStr) {
   return numberStr;
 }
 
-function calculateNumbers(numberStr) {
+function analyzeNumbers(numberStr) {
   let value = "", sequence = "", previous = "";
   for (let i = 0; i < numberStr.length - 1; i++) {
     if (numberStr[i] == " " || numberStr[i+1] == " ") continue;
@@ -160,7 +160,7 @@ function runTestCases(strLength) {
       tempStr = numberStr3;
     } while (tempStr.includes("0"));
 
-    const numberStr4 = calculateNumbers(numberStr3);
+    const numberStr4 = analyzeNumbers(numberStr3);
     if (numberStr4.includes(undefined)) {
       console.log(`Error: ${numberStr4}`);
       break;
