@@ -1,10 +1,11 @@
 /*
   Numeric-Yijing (https://github.com/yslin1013/Numeric-Yijing)
-  Version: 1.0.0,
+  Version: 1.0.0
   Description: A simple analyzing tool for alphanumeric string based on the theory of Numeric Yi-Jing
   Author: Alison Lin (2023.08.01)
 */
 const DEBUG_MODE = false;
+const RUN_TESTS = false;
 
 const nPairs = {
   "13": "天醫", "68": "天醫", "49": "天醫", "27": "天醫",
@@ -169,4 +170,5 @@ function runTestCases(strLength) {
     `Testing finished! (n=${"0".padStart(strLength, "0")}~${maxValue-1})`
   );
 }
-// runTestCases(5);
+
+if (RUN_TESTS) runTestCases(5);
